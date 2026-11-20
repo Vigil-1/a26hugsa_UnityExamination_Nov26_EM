@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class RandomPitchAudio : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public AudioClip soundClip;
+    public float pitchVariance = 0.05f; // ±5% from normal pitch
+
     void Start()
     {
-        
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.clip = soundClip;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlayRandomPitch()
     {
-        
+        float randomPitch = Random.Range(1f - pitchVariance, 1f + pitchVariance);
+        GetComponent<AudioSource>().pitch = randomPitch;
+        GetComponent<AudioSource>().PlayOneShot(soundClip);
     }
 }
